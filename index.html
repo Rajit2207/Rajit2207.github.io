@@ -3,22 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rajit M Krishna | 3D Spatial Systems Architecture</title>
-  <meta name="description" content="Portfolio of Rajit M Krishna, 2nd-Year B.Tech CSE student at REVA University, Bengaluru. Immersive WebGL 3D corridor, real-time hardware telemetry, and low-level C memory systems.">
-  
+  <title>Rajit M Krishna | 3D Spatial Systems Architecture & AI Neural Voice Core</title>
+  <meta name="description" content="Portfolio of Rajit M Krishna, 2nd-Year B.Tech CSE student at REVA University, Bengaluru. Immersive WebGL 3D corridor, real-time hardware telemetry, vocal AI neural copilot with speech synthesis, and low-level C memory systems.">
+
+  <!-- Open Graph & Social Previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rajit2207.github.io/">
+  <meta property="og:title" content="Rajit M Krishna | 3D Spatial Systems Architecture & Neural Voice Core">
+  <meta property="og:description" content="2nd-Year B.Tech CSE @ REVA University. Systems programming, physical computing telemetry, and interactive WebGL vocal AI copilot.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <!-- Three.js (r128) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <style>
     :root {
       --bg: #010206;
-      --surface: rgba(6, 10, 22, 0.88);
-      --surface-raised: rgba(11, 19, 38, 0.94);
-      --card-border: rgba(0, 242, 254, 0.2);
+      --surface: rgba(6, 10, 22, 0.92);
+      --surface-raised: rgba(11, 19, 38, 0.95);
+      --card-border: rgba(0, 242, 254, 0.22);
       --hairline: rgba(255, 255, 255, 0.08);
       --text: #F8FAFC;
       --text-muted: #94A3B8;
@@ -35,25 +41,25 @@
 
     [data-theme="violet"] {
       --bg: #030108;
-      --surface: rgba(14, 6, 26, 0.88);
-      --surface-raised: rgba(24, 11, 44, 0.94);
-      --card-border: rgba(139, 92, 246, 0.25);
+      --surface: rgba(14, 6, 26, 0.92);
+      --surface-raised: rgba(24, 11, 44, 0.95);
+      --card-border: rgba(168, 85, 247, 0.28);
       --accent: #A855F7;
       --accent-glow: rgba(168, 85, 247, 0.5);
     }
     [data-theme="emerald"] {
       --bg: #010604;
-      --surface: rgba(4, 18, 12, 0.88);
-      --surface-raised: rgba(8, 30, 20, 0.94);
-      --card-border: rgba(0, 245, 160, 0.25);
+      --surface: rgba(4, 18, 12, 0.92);
+      --surface-raised: rgba(8, 30, 20, 0.95);
+      --card-border: rgba(0, 245, 160, 0.28);
       --accent: #00F5A0;
       --accent-glow: rgba(0, 245, 160, 0.5);
     }
     [data-theme="amber"] {
       --bg: #080401;
-      --surface: rgba(24, 12, 4, 0.88);
-      --surface-raised: rgba(38, 19, 6, 0.94);
-      --card-border: rgba(255, 176, 32, 0.25);
+      --surface: rgba(24, 12, 4, 0.92);
+      --surface-raised: rgba(38, 19, 6, 0.95);
+      --card-border: rgba(255, 176, 32, 0.28);
       --accent: #FFB020;
       --accent-glow: rgba(255, 176, 32, 0.5);
     }
@@ -76,7 +82,6 @@
       transition: background-color 0.6s ease;
     }
 
-    /* Ambient Glow Pulses behind 3D world */
     .viewport-backdrop {
       position: fixed;
       top: 0;
@@ -88,7 +93,6 @@
       background: radial-gradient(circle at 50% 50%, transparent 35%, rgba(1, 2, 6, 0.85) 100%);
     }
 
-    /* Animated Cyber Scanline & Vignette Overlay */
     .cyber-scanlines {
       position: fixed;
       top: 0;
@@ -102,23 +106,21 @@
       opacity: 0.65;
     }
 
-    /* Corner HUD Reticles with Floating Animation */
     .hud-corner {
       position: fixed;
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-color: var(--accent);
       pointer-events: none;
       z-index: 55;
       opacity: 0.5;
       transition: border-color 0.4s ease;
     }
-    .hud-tl { top: 20px; left: 20px; border-top: 2px solid; border-left: 2px solid; }
-    .hud-tr { top: 20px; right: 20px; border-top: 2px solid; border-right: 2px solid; }
-    .hud-bl { bottom: 20px; left: 20px; border-bottom: 2px solid; border-left: 2px solid; }
-    .hud-br { bottom: 20px; right: 20px; border-bottom: 2px solid; border-right: 2px solid; }
+    .hud-tl { top: 16px; left: 16px; border-top: 2px solid; border-left: 2px solid; }
+    .hud-tr { top: 16px; right: 16px; border-top: 2px solid; border-right: 2px solid; }
+    .hud-bl { bottom: 16px; left: 16px; border-bottom: 2px solid; border-left: 2px solid; }
+    .hud-br { bottom: 16px; right: 16px; border-bottom: 2px solid; border-right: 2px solid; }
 
-    /* Film grain noise overlay */
     .noise-overlay {
       position: fixed;
       top: 0;
@@ -127,11 +129,10 @@
       height: 100vh;
       pointer-events: none;
       z-index: 50;
-      opacity: 0.04;
+      opacity: 0.035;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Fullscreen 3D Spatial Canvas */
     #spatial-canvas {
       position: fixed;
       top: 0;
@@ -142,7 +143,6 @@
       display: block;
     }
 
-    /* Custom Hardware Cursor */
     .cursor-dot {
       width: 6px;
       height: 6px;
@@ -169,14 +169,13 @@
       .cursor-dot, .cursor-ring { display: none; }
     }
 
-    /* Top Cinematic HUD */
     header.hud-top {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 74px;
-      padding: 0 40px;
+      padding: 0 36px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -225,7 +224,7 @@
       pointer-events: auto;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .icon-btn {
       background: var(--surface);
@@ -237,6 +236,10 @@
       font-size: 0.8rem;
       cursor: pointer;
       backdrop-filter: blur(14px);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       transition: all 0.25s ease;
     }
     .icon-btn:hover {
@@ -246,7 +249,6 @@
       box-shadow: 0 0 14px var(--accent-glow);
     }
 
-    /* Right-side Waypoint Rail */
     nav.waypoint-rail {
       position: fixed;
       right: 36px;
@@ -302,7 +304,6 @@
       font-weight: 700;
     }
 
-    /* Waypoint Overlay Cards with Dynamic Backdrop Glow */
     .dossier-stage {
       position: fixed;
       top: 0;
@@ -419,7 +420,88 @@
       transform: translateY(-2px);
     }
 
-    /* Embedded Terminal */
+    .slideshow-wrapper {
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+    .slideshow-track {
+      position: relative;
+      min-height: 120px;
+    }
+    .slide-item {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .slide-item.active {
+      display: block;
+      opacity: 1;
+    }
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .slide-body {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .slide-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-top: 10px;
+    }
+    .slideshow-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--hairline);
+    }
+    .slide-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .slide-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      transform: scale(1.2);
+    }
+    .slide-arrow-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+    }
+    .slide-arrow-btn:hover {
+      background: var(--accent);
+      color: #010206;
+    }
+
     .terminal-container {
       background: #030610;
       border: 1px solid var(--card-border);
@@ -445,7 +527,7 @@
       padding: 16px;
       font-family: var(--font-mono);
       font-size: 0.78rem;
-      max-height: 190px;
+      max-height: 170px;
       overflow-y: auto;
       color: var(--text-muted);
     }
@@ -461,7 +543,6 @@
       flex: 1;
     }
 
-    /* Telemetry Laboratory Widget */
     .workbench-box {
       display: grid;
       grid-template-columns: 1fr 140px;
@@ -527,7 +608,6 @@
       transition: stroke-dashoffset 0.12s ease-out, stroke 0.2s;
     }
 
-    /* Bottom HUD */
     footer.hud-bottom {
       position: fixed;
       bottom: 24px;
@@ -584,7 +664,273 @@
       color: var(--text-dim);
     }
 
-    /* Command Palette Modal */
+    /* AI NEURAL VOICE COPILOT DOCK & WINDOW */
+    .ai-copilot-dock {
+      position: fixed;
+      bottom: 24px;
+      right: 36px;
+      z-index: 100;
+      pointer-events: auto;
+    }
+    .ai-trigger-pill {
+      background: var(--surface-raised);
+      border: 1px solid var(--accent);
+      color: var(--text);
+      border-radius: 100px;
+      padding: 11px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 18px var(--accent-glow);
+      backdrop-filter: blur(18px);
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ai-trigger-pill:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 40px var(--accent-glow);
+    }
+    .ai-core-pip {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      animation: pulse 1.6s infinite ease-in-out;
+    }
+    .ai-core-pip.speaking {
+      background: var(--ok);
+      box-shadow: 0 0 16px var(--ok);
+      animation: flash 0.4s infinite alternate;
+    }
+    .ai-core-pip.listening {
+      background: var(--warning);
+      box-shadow: 0 0 16px var(--warning);
+      animation: flash 0.3s infinite alternate;
+    }
+    @keyframes flash {
+      from { transform: scale(0.9); opacity: 0.7; }
+      to { transform: scale(1.4); opacity: 1; }
+    }
+
+    .ai-copilot-window {
+      position: fixed;
+      bottom: 84px;
+      right: 36px;
+      width: 420px;
+      max-width: calc(100vw - 48px);
+      height: 560px;
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      box-shadow: 0 24px 75px rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      z-index: 101;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.96);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .ai-copilot-window.open {
+      display: flex;
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .ai-window-header {
+      background: #040814;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .ai-window-title {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ai-voice-toggle-btn {
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+    .ai-voice-toggle-btn.active {
+      color: var(--ok);
+      border-color: var(--ok);
+      box-shadow: 0 0 8px rgba(0, 245, 160, 0.4);
+    }
+    .ai-window-close {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .ai-window-close:hover { color: var(--text); }
+
+    /* Holographic Voice Frequency Stage */
+    .ai-voice-stage {
+      background: radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.12) 0%, #030612 85%);
+      border-bottom: 1px solid var(--hairline);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    #voiceVisualizerCanvas {
+      width: 100%;
+      height: 60px;
+      display: block;
+    }
+    .ai-voice-status-pill {
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .voice-audio-orb {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .ai-chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+    .ai-msg {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 12px;
+    }
+    .ai-msg-bot {
+      align-self: flex-start;
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      border-top-left-radius: 2px;
+    }
+    .ai-msg-user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #010206;
+      font-weight: 600;
+      border-top-right-radius: 2px;
+    }
+    .ai-chips-container {
+      padding: 8px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-top: 1px solid var(--hairline);
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .ai-chip {
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ai-chip:hover {
+      background: var(--accent);
+      color: #010206;
+    }
+    .ai-input-bar {
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid var(--hairline);
+      background: #040814;
+    }
+    .ai-mic-btn {
+      background: var(--surface-raised);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 8px;
+      padding: 0 12px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .ai-mic-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+    .ai-mic-btn.active {
+      background: var(--warning);
+      color: #010206;
+      border-color: var(--warning);
+      box-shadow: 0 0 12px var(--warning);
+      animation: pulse 1s infinite alternate;
+    }
+    .ai-input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      outline: none;
+    }
+    .ai-input:focus { border-color: var(--accent); }
+    .ai-send-btn {
+      background: var(--accent);
+      border: none;
+      color: #010206;
+      font-weight: 700;
+      padding: 0 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
     .palette-backdrop {
       position: fixed;
       top: 0;
@@ -653,7 +999,6 @@
       border-radius: 4px;
     }
 
-    /* Toast Notification */
     .toast-node {
       position: fixed;
       bottom: 24px;
@@ -682,12 +1027,13 @@
       .telemetry-group { display: none; }
       nav.waypoint-rail { right: 16px; }
       .workbench-box { grid-template-columns: 1fr; }
+      .ai-copilot-window { right: 16px; bottom: 80px; width: calc(100vw - 32px); height: 490px; }
+      .ai-copilot-dock { right: 16px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Sci-Fi Corner HUD Reticles -->
+  <!-- Sci-Fi Corner Reticles -->
   <div class="hud-corner hud-tl"></div>
   <div class="hud-corner hud-tr"></div>
   <div class="hud-corner hud-bl"></div>
@@ -699,10 +1045,10 @@
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Procedural 3D WebGL Canvas -->
+  <!-- Fullscreen 3D Spatial WebGL Canvas -->
   <canvas id="spatial-canvas"></canvas>
 
-  <!-- Top Cinematic HUD -->
+  <!-- Top HUD Bar -->
   <header class="hud-top">
     <div class="brand-group">
       <span class="status-beacon"></span>
@@ -729,13 +1075,14 @@
     </div>
 
     <div class="hud-actions">
+      <a href="./Rajit_M_Krishna_Resume.pdf" target="_blank" class="icon-btn" title="View / Download Resume">📄 Resume</a>
       <button class="icon-btn" id="themeBtn" title="Cycle Wallpaper Atmosphere">🎨 Theme</button>
       <button class="icon-btn" id="soundBtn" title="Toggle Sound Synth"><span id="soundIcon">🔇</span></button>
       <button class="icon-btn" id="paletteBtn" title="Command Palette (Cmd+K)">⌘K</button>
     </div>
   </header>
 
-  <!-- Right-Hand Waypoint Rail -->
+  <!-- Waypoint Navigation Rail -->
   <nav class="waypoint-rail" id="waypointRail">
     <button class="rail-node active" data-index="0">
       <span class="rail-label">01 // MONOLITH</span>
@@ -759,7 +1106,7 @@
     </button>
   </nav>
 
-  <!-- Synchronized Cinematic Dossier Overlays -->
+  <!-- Waypoint Cards -->
   <div class="dossier-stage">
     <!-- Waypoint 01: Monolith -->
     <div class="waypoint-card active" id="card-0">
@@ -837,18 +1184,53 @@
       </div>
     </div>
 
-    <!-- Waypoint 04: Foundational Archives -->
+    <!-- Waypoint 04: Foundational Archives with Interactive Slideshow -->
     <div class="waypoint-card" id="card-3">
-      <div class="card-eyebrow">AUTOMATION & PROFESSIONAL ACCREDITATION</div>
-      <h2 class="card-title">Python Core & Industry Certifications.</h2>
+      <div class="card-eyebrow">AUTOMATION, CREDENTIALS & PROJECT ARCHIVES</div>
+      <h2 class="card-title">Engineering Gallery & Certifications.</h2>
       <p class="card-desc">
-        Applied Python for sensor data parsing and automation workflows, combined with continuous academic training and verified professional certifications.
+        Explore active development projects, automation scripts, and verified professional coursework tracks.
       </p>
-      <div class="card-meta-panel">
-        <div>[CREDENTIAL 01]: IBM Certified Foundations (Verified Track)</div>
-        <div>[CREDENTIAL 02]: Foundational Skills Certificate (Wadhwani Foundation)</div>
-        <div>[EXPLORATION]: Advanced Data Structures, Algorithms & Modern Web Architecture</div>
+
+      <!-- Slideshow Component -->
+      <div class="slideshow-wrapper">
+        <div class="slideshow-track">
+          <div class="slide-item active" data-slide="0">
+            <div class="slide-title">ESP8266 Turbidity Telemetry Station</div>
+            <div class="slide-body">
+              Physical computing telemetry setup with polynomial regression curves for precise NTU water clarity conversion and direct I2C character LCD telemetry output.
+            </div>
+            <div class="slide-meta">[ESP8266 • Analog Sensors • C++ Firmware]</div>
+          </div>
+
+          <div class="slide-item" data-slide="1">
+            <div class="slide-title">C Systems Memory Architecture</div>
+            <div class="slide-body">
+              Implementation of custom dynamic memory allocations, pointer arithmetic traversals, and bitwise register optimizations for low-level embedded logic.
+            </div>
+            <div class="slide-meta">[C • Pointer Arithmetic • Heap Structs]</div>
+          </div>
+
+          <div class="slide-item" data-slide="2">
+            <div class="slide-title">Industry Credentials & Certifications</div>
+            <div class="slide-body">
+              Verified completion of IBM Certified Foundations and Wadhwani Foundation Foundational Professional Skills coursework.
+            </div>
+            <div class="slide-meta">[IBM Verified Track • Wadhwani Foundation]</div>
+          </div>
+        </div>
+
+        <div class="slideshow-controls">
+          <button class="slide-arrow-btn" id="prevSlideBtn">←</button>
+          <div class="slide-dots" id="slideDots">
+            <div class="slide-dot active" data-slide="0"></div>
+            <div class="slide-dot" data-slide="1"></div>
+            <div class="slide-dot" data-slide="2"></div>
+          </div>
+          <button class="slide-arrow-btn" id="nextSlideBtn">→</button>
+        </div>
       </div>
+
       <div class="card-ctas">
         <button class="btn btn-primary" onclick="flyToWaypoint(4)">Access Terminal →</button>
         <button class="btn btn-secondary" onclick="flyToWaypoint(2)">← Previous</button>
@@ -874,8 +1256,8 @@
           <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim);">rajit@reva-cse-node</span>
         </div>
         <div class="term-body">
-          <div id="cliOutput">Welcome to RMK Spatial CLI v3.5 (REVA CSE Node)
-Type 'help', 'skills', or 'project' for system routines.</div>
+          <div id="cliOutput">Welcome to RMK Spatial CLI v3.8 (REVA CSE Node)
+Type 'help', 'skills', 'resume', or 'project' for system routines.</div>
           <div class="cli-line">
             <span class="cli-prompt">rajit:~$</span>
             <input type="text" class="cli-input" id="cliInput" spellcheck="false" autocomplete="off">
@@ -903,6 +1285,59 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     </div>
   </footer>
 
+  <!-- AI Voice Copilot Dock Trigger -->
+  <div class="ai-copilot-dock">
+    <button class="ai-trigger-pill" id="aiTriggerBtn">
+      <span class="ai-core-pip" id="aiDockPip"></span>
+      <span id="aiDockLabel">RMK-AI :: VOICE ONLINE</span>
+    </button>
+  </div>
+
+  <!-- Interactive Holographic AI Voice Console -->
+  <div class="ai-copilot-window" id="aiWindow">
+    <div class="ai-window-header">
+      <div class="ai-window-title">
+        <span class="ai-core-pip" id="aiHeaderPip"></span>
+        <span>RMK NEURAL VOICE CORE</span>
+      </div>
+      <div class="ai-header-controls">
+        <button class="ai-voice-toggle-btn active" id="speechMuteBtn" title="Toggle AI Spoken Voice">🔊 Voice On</button>
+        <button class="ai-window-close" id="aiCloseBtn">✕</button>
+      </div>
+    </div>
+
+    <!-- Holographic Waveform Visualizer -->
+    <div class="ai-voice-stage">
+      <canvas id="voiceVisualizerCanvas"></canvas>
+      <div class="ai-voice-status-pill">
+        <span class="voice-audio-orb" id="voiceStatusOrb"></span>
+        <span id="voiceStatusText">STANDBY // READY TO TALK</span>
+      </div>
+    </div>
+
+    <!-- Message History -->
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="ai-msg ai-msg-bot">
+        Neural Voice Core active. I can speak and listen to your queries. Ask me about low-level C memory models, the ESP8266 water quality rig, or explore the 3D corridor.
+      </div>
+    </div>
+
+    <!-- Voice Query Chips -->
+    <div class="ai-chips-container">
+      <div class="ai-chip" data-query="Explain C systems and pointers">⚡ C Pointers & Memory</div>
+      <div class="ai-chip" data-query="Tell me about the ESP8266 water quality rig">🧪 Turbidity Rig Formula</div>
+      <div class="ai-chip" data-query="What are your academic credentials?">🎓 Academic Background</div>
+      <div class="ai-chip" data-query="How can I contact or hire Rajit?">📄 Contact & Hire</div>
+    </div>
+
+    <!-- Input Bar with Push-to-Talk Mic -->
+    <div class="ai-input-bar">
+      <button class="ai-mic-btn" id="aiMicBtn" title="Push to Talk (Voice Input)">🎙️</button>
+      <input type="text" class="ai-input" id="aiInput" placeholder="Speak into mic or type message..." autocomplete="off">
+      <button class="ai-send-btn" id="aiSendBtn">TALK</button>
+    </div>
+  </div>
+
   <!-- Command Palette Modal -->
   <div class="palette-backdrop" id="paletteModal">
     <div class="palette-modal">
@@ -918,9 +1353,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
   <div class="toast-node" id="toast">Copied to clipboard!</div>
 
   <script>
-    /* ==========================================================================
-       1. PORTFOLIO CONFIG OBJECT (Single Source of Truth)
-       ========================================================================== */
     const PORTFOLIO_CONFIG = {
       name: "Rajit M Krishna",
       role: "2nd-Year B.Tech CSE Student",
@@ -932,9 +1364,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       project: "IoT-Based Water Quality Monitoring Rig (ESP8266 + Turbidity Sensor)"
     };
 
-    /* ==========================================================================
-       2. PROCEDURAL WEB AUDIO SYNTHESIZER
-       ========================================================================== */
     let audioCtx = null;
     let soundEnabled = false;
 
@@ -965,9 +1394,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       if (soundEnabled) playBeep(880, 0.06);
     });
 
-    /* ==========================================================================
-       3. 3D PROCEDURAL COSMIC NEBULA & SPATIAL CORRIDOR (Three.js)
-       ========================================================================== */
     const canvas = document.getElementById("spatial-canvas");
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -980,7 +1406,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
 
     const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    // Dynamic Spatial Lighting
     const ambientLight = new THREE.AmbientLight(0x00f2fe, 0.45);
     scene.add(ambientLight);
 
@@ -992,11 +1417,10 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     rimLight.position.set(-15, 12, -10);
     scene.add(rimLight);
 
-    // Procedural Architecture Group
     const worldGroup = new THREE.Group();
     scene.add(worldGroup);
 
-    // DUAL-LAYER FLOOR GRIDS
+    // Floor Grids
     const primaryGrid = new THREE.GridHelper(320, 80, 0x00f2fe, 0x111c38);
     primaryGrid.position.y = -4;
     worldGroup.add(primaryGrid);
@@ -1005,7 +1429,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     subGrid.position.y = -3.98;
     worldGroup.add(subGrid);
 
-    // PROCEDURAL CIRCUIT RUNNER BEAMS (Animated Pulses Along Ground)
+    // Circuit runner pulses streaming along ground lanes
     const runnerCount = 14;
     const runnerLines = [];
     for (let r = 0; r < runnerCount; r++) {
@@ -1028,15 +1452,10 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       runnerLines.push(runner);
     }
 
-    // MONOLITHIC PILLARS with Hairline Glowing Wireframe Bevels
+    // Monolithic Columns with wireframe edges and base halos
     const columnGeom = new THREE.BoxGeometry(1.8, 32, 1.8);
-    const columnMat = new THREE.MeshStandardMaterial({
-      color: 0x040813,
-      metalness: 0.9,
-      roughness: 0.2
-    });
+    const columnMat = new THREE.MeshStandardMaterial({ color: 0x040813, metalness: 0.9, roughness: 0.2 });
     const columnEdgeMat = new THREE.LineBasicMaterial({ color: 0x00f2fe, transparent: true, opacity: 0.4 });
-    const columnInnerBevel = new THREE.LineBasicMaterial({ color: 0x00f5a0, transparent: true, opacity: 0.25 });
 
     for (let z = -96; z <= 96; z += 16) {
       [-13, 13].forEach(x => {
@@ -1048,7 +1467,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
         const line = new THREE.LineSegments(edges, columnEdgeMat);
         col.add(line);
 
-        // Secondary inner halo ring around each pillar base
         const haloGeom = new THREE.RingGeometry(1.2, 1.8, 16);
         const haloMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.15 });
         const halo = new THREE.Mesh(haloGeom, haloMat);
@@ -1058,7 +1476,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       });
     }
 
-    // MULTI-LAYER COSMIC STARFIELD (Dust + Distant Nebula Orbs)
+    // High-Density Celestial Starfield
     const starCount = 850;
     const starGeom = new THREE.BufferGeometry();
     const starCoords = new Float32Array(starCount * 3);
@@ -1078,7 +1496,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     const starField = new THREE.Points(starGeom, starMat);
     worldGroup.add(starField);
 
-    // Floating Holographic Planetary Data Ring in distance
+    // Distant Holographic Planetary Data Ring
     const dataRingGeom = new THREE.TorusGeometry(26, 0.15, 16, 120);
     const dataRingMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, wireframe: true, transparent: true, opacity: 0.18 });
     const dataRing = new THREE.Mesh(dataRingGeom, dataRingMat);
@@ -1086,8 +1504,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     dataRing.rotation.x = Math.PI / 3;
     worldGroup.add(dataRing);
 
-    // Floating 3D Geometric Artifacts along the Waypoints with Orbital Rings
-    // 01: Monolith Polyhedron + Orbiting Gyro Ring
+    // Waypoint 01: Monolith Polyhedron + Outer Gyro Ring
     const monolithGroup = new THREE.Group();
     monolithGroup.position.set(0, 4, 30);
     worldGroup.add(monolithGroup);
@@ -1102,7 +1519,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     const monoRing = new THREE.Mesh(monoRingGeom, monoRingMat);
     monolithGroup.add(monoRing);
 
-    // 02: Silicon Memory Core (Torus Knot + Floating Data Cage)
+    // Waypoint 02: Silicon Memory Core + Counter-rotating Octahedron Cage
     const siliconGroup = new THREE.Group();
     siliconGroup.position.set(0, 4, 0);
     worldGroup.add(siliconGroup);
@@ -1117,7 +1534,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     const siliconCage = new THREE.Mesh(siliconCageGeom, siliconCageMat);
     siliconGroup.add(siliconCage);
 
-    // 03: Telemetry Ring Structure (Double Octahedron + Floating Sensor Nodes)
+    // Waypoint 03: Telemetry Structure + Orbiting Micro-satellites
     const telemetryGroup = new THREE.Group();
     telemetryGroup.position.set(0, 4, -30);
     worldGroup.add(telemetryGroup);
@@ -1134,15 +1551,12 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     telemetryGroup.add(sat1);
     telemetryGroup.add(sat2);
 
-    /* ==========================================================================
-       4. 3D CAMERA WAYPOINTS & SPRING LERP DOLLY
-       ========================================================================== */
     const WAYPOINTS = [
-      { pos: new THREE.Vector3(0, 4, 46), target: new THREE.Vector3(0, 4, 30) },     // 01: Monolith
-      { pos: new THREE.Vector3(6, 4, 14), target: new THREE.Vector3(0, 4, 0) },      // 02: Silicon Sanctuary
-      { pos: new THREE.Vector3(-6, 4, -16), target: new THREE.Vector3(0, 4, -30) },  // 03: Telemetry Rotunda
-      { pos: new THREE.Vector3(5, 6, -46), target: new THREE.Vector3(0, 3, -65) },   // 04: Archives
-      { pos: new THREE.Vector3(0, 3, -76), target: new THREE.Vector3(0, 3, -92) }     // 05: Transmission Chamber
+      { pos: new THREE.Vector3(0, 4, 46), target: new THREE.Vector3(0, 4, 30) },
+      { pos: new THREE.Vector3(6, 4, 14), target: new THREE.Vector3(0, 4, 0) },
+      { pos: new THREE.Vector3(-6, 4, -16), target: new THREE.Vector3(0, 4, -30) },
+      { pos: new THREE.Vector3(5, 6, -46), target: new THREE.Vector3(0, 3, -65) },
+      { pos: new THREE.Vector3(0, 3, -76), target: new THREE.Vector3(0, 3, -92) }
     ];
 
     let currentWaypoint = 0;
@@ -1194,28 +1608,22 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       flyToWaypoint((currentWaypoint + 1) % WAYPOINTS.length);
     });
 
-    /* ==========================================================================
-       TOUCHPAD SCROLL ACCUMULATOR & KEYBOARD NAVIGATION
-       ========================================================================== */
+    // Touchpad & Wheel Accumulator
     let scrollAccumulator = 0;
     let isThrottled = false;
 
     window.addEventListener("wheel", (e) => {
       scrollAccumulator += e.deltaY;
-
       if (isThrottled) return;
 
       if (Math.abs(scrollAccumulator) >= 20) {
         isThrottled = true;
-
         if (scrollAccumulator > 0) {
           flyToWaypoint((currentWaypoint + 1) % WAYPOINTS.length);
         } else {
           flyToWaypoint((currentWaypoint - 1 + WAYPOINTS.length) % WAYPOINTS.length);
         }
-
         scrollAccumulator = 0;
-
         setTimeout(() => {
           isThrottled = false;
           scrollAccumulator = 0;
@@ -1232,29 +1640,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       }
     });
 
-    // Mobile Touch Gesture Support
-    let touchStartX = 0;
-    let touchStartY = 0;
-    window.addEventListener("touchstart", (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener("touchend", (e) => {
-      const diffX = e.changedTouches[0].clientX - touchStartX;
-      const diffY = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(diffX) > 50 || Math.abs(diffY) > 50) {
-        if (diffX < -40 || diffY < -40) {
-          flyToWaypoint((currentWaypoint + 1) % WAYPOINTS.length);
-        } else if (diffX > 40 || diffY > 40) {
-          flyToWaypoint((currentWaypoint - 1 + WAYPOINTS.length) % WAYPOINTS.length);
-        }
-      }
-    }, { passive: true });
-
-    /* ==========================================================================
-       5. 175-200 FPS HIGH-REFRESH RENDERING LOOP & DYNAMIC ANIMATIONS
-       ========================================================================== */
     let lastTime = performance.now();
     let frameCount = 0;
     let fpsTimer = performance.now();
@@ -1280,7 +1665,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       mouseX += (targetMouseX - mouseX) * 0.06;
       mouseY += (targetMouseY - mouseY) * 0.06;
 
-      // Parallax with subtle organic breathing oscillation
       const breath = Math.sin(now * 0.0015) * 0.08;
       camera.position.set(
         currentCamPos.x + mouseX * 0.8,
@@ -1289,7 +1673,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       );
       camera.lookAt(currentLookTarget);
 
-      // Continuous rotations & orbital physics
       monolithMesh.rotation.y += 0.35 * delta;
       monolithMesh.rotation.x = Math.sin(now * 0.002) * 0.15;
       monoRing.rotation.z += 0.25 * delta;
@@ -1299,23 +1682,17 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       siliconCage.rotation.y -= 0.2 * delta;
 
       telemetryMesh.rotation.y += 0.6 * delta;
-      // Orbiting satellites
       const satTime = now * 0.0025;
       sat1.position.set(Math.cos(satTime) * 4.8, Math.sin(satTime * 1.5) * 1.5, Math.sin(satTime) * 4.8);
       sat2.position.set(Math.cos(satTime + Math.PI) * 4.8, -Math.sin(satTime * 1.5) * 1.5, Math.sin(satTime + Math.PI) * 4.8);
 
-      // Distant planetary ring wobble
       dataRing.rotation.z += 0.08 * delta;
 
-      // Circuit Runner Pulses streaming along the corridor floor
       runnerLines.forEach(runner => {
         runner.position.z += runner.userData.speed * delta;
-        if (runner.position.z > 90) {
-          runner.position.z = -120;
-        }
+        if (runner.position.z > 90) runner.position.z = -120;
       });
 
-      // Cosmic starfield particle drift
       starField.rotation.y += 0.03 * delta;
 
       renderer.render(scene, camera);
@@ -1329,9 +1706,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    /* ==========================================================================
-       6. TELEMETRY CLOCK
-       ========================================================================== */
     function updateClock() {
       const now = new Date();
       document.getElementById("hudClock").textContent = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Kolkata" });
@@ -1339,9 +1713,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     setInterval(updateClock, 1000);
     updateClock();
 
-    /* ==========================================================================
-       7. HARDWARE TELEMETRY WORKBENCH
-       ========================================================================== */
     const voltageSlider = document.getElementById("voltageSlider");
     const voltVal = document.getElementById("voltVal");
     const ntuVal = document.getElementById("ntuVal");
@@ -1375,16 +1746,32 @@ Type 'help', 'skills', or 'project' for system routines.</div>
     });
     updateWorkbench();
 
-    /* ==========================================================================
-       8. EMBEDDED MACOS TERMINAL
-       ========================================================================== */
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide-item");
+    const dots = document.querySelectorAll(".slide-dot");
+
+    function setSlide(idx) {
+      currentSlide = (idx + slides.length) % slides.length;
+      slides.forEach((s, i) => s.classList.toggle("active", i === currentSlide));
+      dots.forEach((d, i) => d.classList.toggle("active", i === currentSlide));
+      playBeep(640, 0.02);
+    }
+
+    document.getElementById("prevSlideBtn").addEventListener("click", () => setSlide(currentSlide - 1));
+    document.getElementById("nextSlideBtn").addEventListener("click", () => setSlide(currentSlide + 1));
+    dots.forEach((dot, idx) => dot.addEventListener("click", () => setSlide(idx)));
+
     const cliInput = document.getElementById("cliInput");
     const cliOutput = document.getElementById("cliOutput");
 
     const commands = {
-      help: () => "Available routines:\n - help: Show system command index\n - skills: Show verified core proficiencies\n - project: Overview of IoT Water Quality Rig\n - clear: Wipe output buffer\n - contact: Dispatch email transmission",
+      help: () => "Available routines:\n - help: Show system command index\n - skills: Show verified core proficiencies\n - project: Overview of IoT Water Quality Rig\n - resume: View / Download CV\n - clear: Wipe output buffer\n - contact: Dispatch email transmission",
       skills: () => "TECHNICAL PROFICIENCIES:\n [C]: Pointers, manual dynamic memory allocation (malloc/free), structs, bitwise logic\n [Python]: Scripting, telemetry data pipelines, core algorithm modeling",
       project: () => "SIGNATURE RIG:\n Microcontroller: ESP8266 NodeMCU\n Sensor: Optical Turbidity Sensor\n Mapping: Real-time NTU polynomial conversion with I2C character LCD",
+      resume: () => {
+        window.open('./Rajit_M_Krishna_Resume.pdf', '_blank');
+        return "Opening verified resume file...";
+      },
       clear: () => { cliOutput.textContent = ""; return ""; },
       contact: () => {
         window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${PORTFOLIO_CONFIG.email}`, '_blank');
@@ -1410,9 +1797,275 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       }
     });
 
-    /* ==========================================================================
-       9. COMMAND PALETTE (CMD+K)
-       ========================================================================== */
+    const aiTriggerBtn = document.getElementById("aiTriggerBtn");
+    const aiWindow = document.getElementById("aiWindow");
+    const aiCloseBtn = document.getElementById("aiCloseBtn");
+    const aiChatBody = document.getElementById("aiChatBody");
+    const aiInput = document.getElementById("aiInput");
+    const aiSendBtn = document.getElementById("aiSendBtn");
+    const aiMicBtn = document.getElementById("aiMicBtn");
+    const speechMuteBtn = document.getElementById("speechMuteBtn");
+    const voiceStatusText = document.getElementById("voiceStatusText");
+    const voiceStatusOrb = document.getElementById("voiceStatusOrb");
+    const aiDockPip = document.getElementById("aiDockPip");
+    const aiHeaderPip = document.getElementById("aiHeaderPip");
+
+    let isSpeaking = false;
+    let isListening = false;
+    let voiceAudioEnabled = true;
+    let recognition = null;
+    let hasGreeted = false;
+
+    // SpeechSynthesis Voice Setup
+    function speakOutLoud(text) {
+      if (!voiceAudioEnabled || !('speechSynthesis' in window)) return;
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.05;
+      utterance.pitch = 1.0;
+
+      // Select natural English voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Daniel')));
+      if (preferred) utterance.voice = preferred;
+
+      utterance.onstart = () => {
+        isSpeaking = true;
+        setVoiceStatus("TRANSMITTING AUDIO // SPEAKING", "speaking");
+      };
+
+      utterance.onend = () => {
+        isSpeaking = false;
+        setVoiceStatus("STANDBY // READY TO TALK", "standby");
+      };
+
+      utterance.onerror = () => {
+        isSpeaking = false;
+        setVoiceStatus("AUDIO STANDBY", "standby");
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function setVoiceStatus(statusMsg, mode = "standby") {
+      voiceStatusText.textContent = statusMsg;
+      voiceStatusOrb.className = "voice-audio-orb";
+      aiDockPip.className = "ai-core-pip";
+      aiHeaderPip.className = "ai-core-pip";
+
+      if (mode === "speaking") {
+        voiceStatusOrb.style.background = "var(--ok)";
+        voiceStatusOrb.style.boxShadow = "0 0 12px var(--ok)";
+        aiDockPip.classList.add("speaking");
+        aiHeaderPip.classList.add("speaking");
+      } else if (mode === "listening") {
+        voiceStatusOrb.style.background = "var(--warning)";
+        voiceStatusOrb.style.boxShadow = "0 0 12px var(--warning)";
+        aiDockPip.classList.add("listening");
+        aiHeaderPip.classList.add("listening");
+      } else {
+        voiceStatusOrb.style.background = "var(--accent)";
+        voiceStatusOrb.style.boxShadow = "0 0 10px var(--accent)";
+      }
+    }
+
+    speechMuteBtn.addEventListener("click", () => {
+      voiceAudioEnabled = !voiceAudioEnabled;
+      if (!voiceAudioEnabled) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        speechMuteBtn.textContent = "🔇 Voice Muted";
+        speechMuteBtn.classList.remove("active");
+        setVoiceStatus("VOICE SYNTHESIS MUTED", "standby");
+      } else {
+        speechMuteBtn.textContent = "🔊 Voice On";
+        speechMuteBtn.classList.add("active");
+        setVoiceStatus("VOICE SYNTHESIS ARMED", "standby");
+        playBeep(800, 0.04);
+      }
+    });
+
+    // Holographic Voice Visualizer Canvas
+    const visualizerCanvas = document.getElementById("voiceVisualizerCanvas");
+    const vCtx = visualizerCanvas.getContext("2d");
+    let visualizerStep = 0;
+
+    function resizeVisualizer() {
+      visualizerCanvas.width = visualizerCanvas.offsetWidth;
+      visualizerCanvas.height = visualizerCanvas.offsetHeight;
+    }
+    window.addEventListener("resize", resizeVisualizer);
+    setTimeout(resizeVisualizer, 100);
+
+    function drawVisualizer() {
+      vCtx.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+      const width = visualizerCanvas.width;
+      const height = visualizerCanvas.height;
+      const mid = height / 2;
+
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#00f2fe';
+      const okColor = getComputedStyle(document.documentElement).getPropertyValue('--ok').trim() || '#00f5a0';
+
+      const barCount = 38;
+      const barWidth = width / barCount;
+
+      for (let i = 0; i < barCount; i++) {
+        let amp = 0.12;
+        if (isSpeaking) {
+          amp = 0.35 + Math.sin(visualizerStep * 2.5 + i * 0.35) * 0.3 + Math.random() * 0.35;
+        } else if (isListening) {
+          amp = 0.25 + Math.sin(visualizerStep * 3 + i * 0.5) * 0.25 + Math.random() * 0.4;
+        } else {
+          amp = 0.08 + Math.sin(visualizerStep + i * 0.18) * 0.06;
+        }
+
+        const barHeight = Math.max(4, height * amp);
+        const x = i * barWidth;
+        const y = mid - barHeight / 2;
+
+        vCtx.fillStyle = isSpeaking ? okColor : (isListening ? "#F59E0B" : accentColor);
+        vCtx.globalAlpha = 0.75;
+        vCtx.fillRect(x + 2, y, barWidth - 4, barHeight);
+      }
+
+      visualizerStep += 0.08;
+      requestAnimationFrame(drawVisualizer);
+    }
+    requestAnimationFrame(drawVisualizer);
+
+    // Initial Spoken Greeting on Open
+    aiTriggerBtn.addEventListener("click", () => {
+      aiWindow.classList.toggle("open");
+      playBeep(700, 0.04);
+      resizeVisualizer();
+
+      if (aiWindow.classList.contains("open")) {
+        aiInput.focus();
+        if (!hasGreeted) {
+          hasGreeted = true;
+          const greeting = "Neural Core online. Greetings, I am Rajit's automated systems assistant. Ask me about low-level C memory models, the ESP8266 water quality rig, or explore the 3D corridor.";
+          speakOutLoud(greeting);
+        }
+      } else {
+        window.speechSynthesis.cancel();
+      }
+    });
+
+    aiCloseBtn.addEventListener("click", () => {
+      aiWindow.classList.remove("open");
+      window.speechSynthesis.cancel();
+      if (recognition && isListening) recognition.stop();
+    });
+
+    // SpeechRecognition (Microphone Audio-In)
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+
+      recognition.onstart = () => {
+        isListening = true;
+        aiMicBtn.classList.add("active");
+        setVoiceStatus("LISTENING TO AUDIO IN...", "listening");
+        playBeep(980, 0.05);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        aiInput.value = transcript;
+        processAiPrompt(transcript);
+      };
+
+      recognition.onerror = () => {
+        isListening = false;
+        aiMicBtn.classList.remove("active");
+        setVoiceStatus("AUDIO INPUT ERROR", "standby");
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        aiMicBtn.classList.remove("active");
+        if (!isSpeaking) setVoiceStatus("STANDBY // READY TO TALK", "standby");
+      };
+
+      aiMicBtn.addEventListener("click", () => {
+        if (!isListening) {
+          try {
+            window.speechSynthesis.cancel();
+            recognition.start();
+          } catch (e) {}
+        } else {
+          recognition.stop();
+        }
+      });
+    } else {
+      aiMicBtn.title = "Speech Recognition not supported in this browser (Use Chrome or Edge)";
+      aiMicBtn.style.opacity = "0.5";
+    }
+
+    function streamBotReply(text, flyWaypointIdx = null) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "ai-msg ai-msg-bot";
+      aiChatBody.appendChild(msgDiv);
+
+      // Trigger spoken speech synthesis
+      speakOutLoud(text);
+
+      let charIdx = 0;
+      function typeChar() {
+        if (charIdx < text.length) {
+          msgDiv.textContent += text.charAt(charIdx);
+          charIdx++;
+          if (charIdx % 3 === 0) playBeep(900 + Math.random() * 200, 0.015);
+          aiChatBody.scrollTop = aiChatBody.scrollHeight;
+          setTimeout(typeChar, 14);
+        } else if (flyWaypointIdx !== null) {
+          flyToWaypoint(flyWaypointIdx);
+        }
+      }
+      typeChar();
+    }
+
+    function processAiPrompt(prompt) {
+      if (!prompt.trim()) return;
+
+      const userMsg = document.createElement("div");
+      userMsg.className = "ai-msg ai-msg-user";
+      userMsg.textContent = prompt;
+      aiChatBody.appendChild(userMsg);
+      aiChatBody.scrollTop = aiChatBody.scrollHeight;
+      aiInput.value = "";
+
+      const p = prompt.toLowerCase();
+      setTimeout(() => {
+        if (p.includes("c") || p.includes("pointer") || p.includes("memory") || p.includes("malloc") || p.includes("struct")) {
+          streamBotReply("Pivoting 3D camera to Waypoint 02: Silicon Sanctuary. Rajit's C foundations cover manual heap allocations with malloc and free, pointer dereferencing, struct layouts, and leak-safe bitwise registers.", 1);
+        } else if (p.includes("turbidity") || p.includes("water") || p.includes("formula") || p.includes("esp8266") || p.includes("iot") || p.includes("sensor")) {
+          streamBotReply("Engaging Telemetry Rotunda at Waypoint 03. The ESP8266 rig maps analog voltage to Nephelometric Turbidity Units using the calibrated second-order characteristic: NTU = -1120.4 times V squared plus 5742.3 times V minus 4352.9 with I2C character LCD telemetry.", 2);
+        } else if (p.includes("education") || p.includes("reva") || p.includes("university") || p.includes("college") || p.includes("degree") || p.includes("credential") || p.includes("certif")) {
+          streamBotReply("Routing to Waypoint 04: Archives. Rajit is an undergraduate in B.Tech CSE at REVA University, Bengaluru (2025–Present) and holds verified credentials from IBM Certified Foundations and Wadhwani Foundation.", 3);
+        } else if (p.includes("hire") || p.includes("contact") || p.includes("mail") || p.includes("email") || p.includes("resume") || p.includes("touch")) {
+          streamBotReply("Opening Waypoint 05: Transmission Chamber. Direct email transmissions can be sent to rajit.m.krishna000@gmail.com, or check out his live GitHub (Rajit2207) and downloadable resume.", 4);
+        } else {
+          streamBotReply("I am synced to Rajit M Krishna's systems stack. You can ask me to explain his C memory ownership, ESP8266 water quality telemetry station, REVA University degree, or tap the spoken prompt chips below.");
+        }
+      }, 250);
+    }
+
+    aiSendBtn.addEventListener("click", () => processAiPrompt(aiInput.value));
+    aiInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") processAiPrompt(aiInput.value);
+    });
+
+    document.querySelectorAll(".ai-chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        processAiPrompt(chip.dataset.query);
+      });
+    });
+
     const paletteModal = document.getElementById("paletteModal");
     const paletteSearch = document.getElementById("paletteSearch");
     const paletteList = document.getElementById("paletteList");
@@ -1423,6 +2076,7 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       { label: "Fly to: 03 // Telemetry Rotunda (IoT Rig)", action: () => flyToWaypoint(2), tag: "SPATIAL" },
       { label: "Fly to: 04 // Foundations & Credentials", action: () => flyToWaypoint(3), tag: "SPATIAL" },
       { label: "Fly to: 05 // Transmission Chamber", action: () => flyToWaypoint(4), tag: "SPATIAL" },
+      { label: "AI Voice Core: Open Console", action: () => { aiWindow.classList.add("open"); resizeVisualizer(); }, tag: "AI" },
       { label: "Wallpaper Theme: Obsidian Cyan", action: () => applyTheme(""), tag: "THEME" },
       { label: "Wallpaper Theme: Neo Tokyo Violet", action: () => applyTheme("violet"), tag: "THEME" },
       { label: "Wallpaper Theme: Cyber Matrix Emerald", action: () => applyTheme("emerald"), tag: "THEME" },
@@ -1469,9 +2123,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
       if (e.target === paletteModal) closePalette();
     });
 
-    /* ==========================================================================
-       10. WALLPAPER ATMOSPHERE & 3D LIGHTING THEME ENGINE
-       ========================================================================== */
     const themes = ["", "violet", "emerald", "amber"];
     let themeIdx = 0;
 
@@ -1482,7 +2133,6 @@ Type 'help', 'skills', or 'project' for system routines.</div>
         document.body.removeAttribute("data-theme");
       }
 
-      // Synchronize 3D scene lighting & colors
       if (theme === "violet") {
         scene.background.setHex(0x030108);
         scene.fog.color.setHex(0x030108);
